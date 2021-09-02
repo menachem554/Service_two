@@ -1,0 +1,40 @@
+version: '3'
+services: 
+  servise-two:
+    container_name: servise-two
+    restart: always
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - "7000:7000"
+    volumes: 
+      - /app/node_modules        
+      - .:/app
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true 
+    
+  school-system:
+    image: school-system
+    container_name: school-system
+    restart: always
+    # build: 
+    #   context: .
+    #   dockerfile: Dockerfile
+    ports: 
+      - "5000:5000"
+    external_links:
+      - mongo
+    volumes: 
+      - /app/node_modules        
+      - .:/app
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true 
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+       - '27017:27017'
