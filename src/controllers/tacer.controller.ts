@@ -37,9 +37,11 @@ export const editTacher = async (req: Request, res: Response) => {
   try {
     const tacherID: number = parseInt(req.query.tacherID as string, 10);
     const tacher = await axios.put(
-      'http://school-systemt:5000/api/tachers/editTacher',
+      'http://school-system:5000/api/tachers/editTacher',
       req.body,
-      { params: { tacherID } }
+      {
+        params: { tacherID },
+      }
     );
     res.status(tacher.status).send(tacher.data);
   } catch (data) {
